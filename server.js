@@ -21,7 +21,17 @@ app.get('/', (req, res) => {
 //getting fetch from front end and taking json data and sending it back
 app.get('/api/notes', (req, res) => res.json(noteData));
 
+//creating post request for api/notes
+app.post('/api/notes', (req, res) => {
+  // Let the client know that their POST request was received
+  res.json(`${req.method} request received`);
 
+  // Show the user agent information in the terminal
+  console.info(req.rawHeaders);
+
+  // Log our request to the terminal
+  console.info(`${req.method} request received`);
+});
 
 
 
