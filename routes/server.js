@@ -9,11 +9,17 @@ const PORT = 3001;
 //middleware for serving static assets
 app.use(express.static('public'));
 
+// Sets up the Express app to handle data parsing. Need to have on all api calls
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-//get 
-app.get('/api/terms', (req, res) => res.json(termData));
+//First route to main page
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+  });
 
-
+//getting fetch from front end and taking json data and sending it back
+app.get('/api/notes', (req, res) => res.json(noteData));
 
 
 
