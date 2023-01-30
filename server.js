@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const noteData = require('./db/db.json')
-const fs = require('fs')
+const fs = require('fs');
+const { readAndAppend } = require('../UCF-VIRT-FSF-FT-12-2022-U-LOLC/11-Express/01-Activities/28-Stu_Mini-Project/Develop/helpers/fsUtils');
 
 const app = express();
 const PORT = 3001;
@@ -37,14 +38,15 @@ app.post('/api/notes', (req, res) => {
   console.log(req.body)
 
   // Prepare a response object to send back to the client
-  let response;
+  const { title, text} = req.body;
 
   // Check if there is anything in the response body
   if (req.body && req.body.text) {
-    response = {
-      status: 'success',
-      data: req.body,
+   const newNote = {
+      title,
+      text,
     };
+    readAndAppend(newNote, './db/db.json')
     res.json(`sending the note back`);
   } else {
     res.json('Request body must at least contain a product name');
