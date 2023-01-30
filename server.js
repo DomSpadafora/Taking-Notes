@@ -33,18 +33,19 @@ app.get('/api/notes', (req, res) => res.json(noteData));
 //creating post request for 'adding a new note' and sending back***activity 13/15***
 app.post('/api/notes', (req, res) => {
   // Log that a POST request was received
-  console.info(`${req.method} request received to add a review`);
+  console.info(`${req.method} request received to add a note`);
+  console.log(req.body)
 
   // Prepare a response object to send back to the client
   let response;
 
   // Check if there is anything in the response body
-  if (req.body && req.body.product) {
+  if (req.body && req.body.text) {
     response = {
       status: 'success',
       data: req.body,
     };
-    res.json(`Review for ${response.data.product} has been added!`);
+    res.json(`sending the note back`);
   } else {
     res.json('Request body must at least contain a product name');
   }
