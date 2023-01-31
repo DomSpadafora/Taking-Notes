@@ -1,5 +1,5 @@
 const fb = require('express').Router();
-const { readFromFile, readAndAppend } = require('../helpers/fsUtils');
+const { readFromFile, readAndAppend, deleteNote} = require('../helpers/fsUtils');
 const uuid = require('../helpers/uuid');
 
 
@@ -24,13 +24,15 @@ fb.post('/notes', (req, res) => {
       const newNote = {
         title,
         text,
-        userId: uuid(),
+        id: uuid(),
       };
   
-      readAndAppend(newNote, './db/db.json');
-  
-      res.json(newNote);
+      readAndAppend(newNote, './db/db.json', res);
     } 
+});
+
+fb.delete('/notes/:id', (req, res) => {
+  deleteNote(req.params.id, './db/db.json', res)
 });
 
 
